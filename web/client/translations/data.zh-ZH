@@ -52,6 +52,7 @@
             "deleteLayerMessage": "你真的想删除这个层？",
             "confirmDelete": "你确定?",
             "featureTypeError": "无法加载图层属性",
+            "featureTypeErrorInvalidJSON": "Cannot load layer attributes. Response is not valid",
             "elevation": "海拔",
             "titleTranslations": "标题 translations",
             "groupProperties": "组属性",
@@ -283,6 +284,7 @@
             "refreshConfirm": "更新",
             "refreshMessage": "从服务器重新加载WMS图层配置",
             "refreshError": "更新图层时出错： ",
+            "epsgNotSupported": "CRS {epsg} not supported for zoom to layer",
             "refreshOptions": {
                 "bbox": "更新BBOX",
                 "search": "更新搜索选项",
@@ -539,6 +541,7 @@
             "emptyfilter": "没有过滤器设置。 如果服务器不支持分页，搜索可能会超时。",
             "attributefilter":{
                 "add_condition": " Add Condition",
+                "delete": " Delete",
                 "add_group": " Add Group",
                 "group_label_a": "Match",
                 "group_label_b": "of the following conditions:",
@@ -569,6 +572,7 @@
                 "geometric_operation": "Geometric Operation",
                 "combo_placeholder": "Select...",
                 "spatial_filter_header": "Region of interest",
+                "remove": "Remove",
                 "draw_start_label": "Draw the region of interest on the map",
                 "dwithin_label": "meters",
                 "details": {
@@ -777,6 +781,9 @@
             "type": "Type",
             "serviceTitle": "Title",
             "serviceTitlePlaceholder": "type a title",
+            "missingReference": "Missing OGC reference metadata",
+            "showDescription": "Show full description",
+            "hideDescription": "Hide full description",
             "notification": {
                 "warningAddCatalogService": "Insert a valid url and title",
                 "addCatalogService": "Service added correctly",
@@ -948,6 +955,7 @@
                 "placeholders": {
                     "default": "Search...",
                     "string": "Type text to filter...",
+                    "date": "Type date to filter...",
                     "number": "Type number or expression..."
                 },
                 "tooltips": {
@@ -1013,7 +1021,7 @@
                     "configureChartOptions": "Configure chart options",
                     "configureWidgetOptions": "Configure widget options",
                     "updateWidget": "Update the widget",
-                    "addToTheMap": "Add the widget to the map"
+                    "addTheWidget": "Add the widget"
                 },
                 "errors": {
                     "noWidgetsAvailableTitle": "No Widgets available",
@@ -1055,6 +1063,9 @@
             },
             "chartOptionsTitle": "Chart",
             "widgetOptionsTitle": "Widget Info",
+            "placeHolder":{
+                "default":"Select attribute"
+            },
             "groupByAttributes": {
                 "line": "X Attribute",
                 "pie": "Group By",
@@ -1065,7 +1076,9 @@
                 "line": "Y Attribute",
                 "pie": "Value",
                 "bar": "Y Attribute",
-                "gauge": "Value"
+                "gauge": "Use",
+                "counter": "Use",
+                "default": "Use"
             },
             "aggregateFunction": {
                 "line": "Operation",
@@ -1085,8 +1098,22 @@
                 "pie": "Display Legend",
                 "bar": "Display Legend",
                 "gauge": "Display labels"
+            },
+            "displayCartesian": {
+                "line": "Hide Grid",
+                "bar": "Hide Grid"
+            },"yAxis":{
+                "line": "Hide Y axis",
+                "bar": "Hide Y axis"
+            },
+            "yAxisLabel":{
+                "line": "Legend Label",
+                "bar": "Legend Label"
+            },
+            "advancedOptions":{
+                "line": "Advanced Options",
+                "bar": "Advanced Options"
             }
-
         },
         "wizard": {
             "next": "Next",
@@ -1250,6 +1277,46 @@
             "cesiumNavigation": {
                 "title": "Navigation",
                 "text": "Here you can find the zoom in and zoom out buttons"
+            },
+            "dashboardIntro": {
+                "title": "Dashboard Tutorial",
+                "text": "Overview of dashboard functionalities"
+            },
+            "dashboardNav": {
+                "title": "Navigation Bar",
+                "text": "Here you can find language selector, login, homepage link and options menu"
+            },
+            "dashboardContainer": {
+                "title": "Dashboard",
+                "text": "<p>A Dashboard in MapStore2 provides a set of information suitably collected to show aggregated data in one shot view. Geospatial data displayed in a map can be placed side by side to related attribute tables, charts and other, with the aim to connect different kind of information, show statistical details and textual descriptions relating to a specific context.</p><p> All users can visualize and interact with published dashboards but only users allowed to edit can add, arrange, resize or delete all the widgets inside a dashboard</p>"
+            },
+            "dashboardAddWidget": {
+                "title": "Add Widget",
+                "text": "To add a widget to the dashboard, you can click on the + button"
+            },
+            "dashboardBuilder": {
+                "title": "Create a new widget",
+                "text": "You can select which type of widget you want and then add to the dashboard selecting one of the items in the list"
+            },
+            "dashboardAddChart": {
+                "title": "Chart Widget",
+                "text": "<p>It's a widget that show and aggregate data into pie, line or bar charts.</p><p>Steps:</p><p><ul><li>Select a vector layer</li><li>Select chart type</li><li>Configure chart data</li><li>Save and add to dashboard</li></ul></p>"
+            },
+            "dashboardAddText": {
+                "title": "Text Widget",
+                "text": "<p>Add your own text to the dashboard.</p><p>Steps:</p><p><ul><li>Edit text in editor</li><li>Save and add to dashboard</li></ul></p>"
+            },
+            "dashboardAddTable": {
+                "title": "Table Widget",
+                "text": "<p>Add an attribute table to the dashboard that contains data from a selected vector layer. You can also filter data to customize your table.</p><p>Steps:</p><p><ul><li>Select a vector layer</li><li>Configure table data</li><li>Save and add to dashboard</li></ul></p>"
+            },
+            "dashboardAddCounter": {
+                "title": "Counter Widget",
+                "text": "<p>Add a new counter to the dashboard. Counter will show numeric value aggregationg data from a selected vector layer.</p><p>Steps:</p><p><ul><li>Select a vector layer</li><li>Configure counter data</li><li>Save and add to dashboard</li></ul></p>"
+            },
+            "dashboardAddMap": {
+                "title": "Map Widget",
+                "text": "<p>Add a new interactive map to the dashboard. You can add more than one map with the ability to connect other widgets to them. After saving the first map, the legend widget will be added to the list. Legend Widget will show a legend related to the connected map.</p><p>Steps:</p><p><ul><li>Select a map</li><li>Improve map by adding new layers</li><li>Save and add to dashboard</li></ul></p>"
             }
         }
     }

@@ -24,6 +24,8 @@ const {changeDrawingStatus} = require('../actions/draw');
 const {INIT_QUERY_PANEL} = require('../actions/wfsquery');
 const {getJSONFeatureWA} = require('../observables/wfs');
 const {describeFeatureTypeToAttributes} = require('../utils/FeatureTypeUtils');
+const notifications = require('../actions/notifications');
+
 const extractInfo = (data) => {
     return {
         geometry: data.featureTypes[0].properties
@@ -79,7 +81,15 @@ const featureTypeSelectedEpic = (action$, store) =>
                     try {
                         JSON.parse(response.data);
                     } catch (e) {
-                        return Rx.Observable.from([featureTypeError(action.typeName, 'Error from WFS: ' + e.message)]);
+                        return Rx.Observable.from([
+                            featureTypeError(action.typeName, 'Error from WFS: ' + e.message),
+                            notifications.error({
+                                title: 'warning',
+                                message: 'layerProperties.featureTypeErrorInvalidJSON',
+                                autoDismiss: 3,
+                                position: 'tc'
+                            })
+                        ]);
                     }
                     return Rx.Observable.from([featureTypeError(action.typeName, 'Error: feature types are empty')]);
                 })
@@ -99,13 +109,15 @@ const wfsQueryEpic = (action$, store) =>
         .switchMap(action => {
             const sortOptions = getDefaultSortOptions(getFirstAttribute(store.getState()));
             const totalFeatures = paginationInfo.totalFeatures(store.getState());
+            const queryOptions = action.queryOptions || {};
             const searchUrl = ConfigUtils.filterUrlParams(action.searchUrl, authkeyParamNameSelector(store.getState()));
             return Rx.Observable.merge(
                     getJSONFeatureWA(searchUrl, action.filterObj, {
                         totalFeatures,
-                        sortOptions
+                        sortOptions,
+                        ...queryOptions
                     })
-                    .map(data => querySearchResponse(data, action.searchUrl, action.filterObj))
+                    .map(data => querySearchResponse(data, action.searchUrl, action.filterObj, action.queryOptions))
                     .catch(error => Rx.Observable.of(queryError(error)))
                     .startWith(featureLoading(true))
                     .concat(Rx.Observable.of(featureLoading(false)))

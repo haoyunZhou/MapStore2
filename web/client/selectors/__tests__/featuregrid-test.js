@@ -30,7 +30,9 @@ const {
     showAgainSelector,
     showPopoverSyncSelector,
     hasSupportedGeometry,
-    getDockSize
+    getDockSize,
+    selectedLayerNameSelector,
+    queryOptionsSelector
 } = require('../featuregrid');
 
 const idFt1 = "idFt1";
@@ -471,5 +473,65 @@ describe('Test featuregrid selectors', () => {
     it('test getDockSize', () => {
         expect(getDockSize({ featuregrid: {dockSize: 0.5} })).toBe(0.5);
         expect(getDockSize({})).toBe(undefined);
+    });
+
+    it('test selectedLayerNameSelector', () => {
+        const state = {...initialState, layers: {
+            flat: [{
+                id: "TEST_LAYER",
+                title: "Test Layer",
+                name: 'editing:polygons'
+            }]
+        }, featuregrid: {
+            open: true,
+            selectedLayer: "TEST_LAYER",
+            mode: modeEdit,
+            select: [feature1, feature2],
+            changes: [{id: feature2.id, updated: {geometry: null}}]
+        }};
+        expect(selectedLayerNameSelector(state)).toBe('editing:polygons');
+        expect(selectedLayerNameSelector({})).toBe('');
+    });
+    it('queryOptionsSelector gets viewParams', () => {
+        const state = {
+            ...initialState, layers: {
+                flat: [{
+                    id: "TEST_LAYER",
+                    title: "Test Layer",
+                    name: 'editing:polygons',
+                    params: {
+                        viewParams: "a:b"
+                    }
+                }]
+            }, featuregrid: {
+                open: true,
+                selectedLayer: "TEST_LAYER",
+                mode: modeEdit,
+                select: [feature1, feature2],
+                changes: [{ id: feature2.id, updated: { geometry: null } }]
+            }
+        };
+        expect(queryOptionsSelector(state).viewParams).toBe("a:b");
+    });
+    it('queryOptionsSelector gets CQL_FILTER', () => {
+        const state = {
+            ...initialState, layers: {
+                flat: [{
+                    id: "TEST_LAYER",
+                    title: "Test Layer",
+                    name: 'editing:polygons',
+                    params: {
+                        CQL_FILTER: "a:b"
+                    }
+                }]
+            }, featuregrid: {
+                open: true,
+                selectedLayer: "TEST_LAYER",
+                mode: modeEdit,
+                select: [feature1, feature2],
+                changes: [{ id: feature2.id, updated: { geometry: null } }]
+            }
+        };
+        expect(queryOptionsSelector(state).cqlFilter).toBe("a:b");
     });
 });

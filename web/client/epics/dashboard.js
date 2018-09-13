@@ -57,7 +57,7 @@ const {
     createResource,
     updateResource,
     getResource
-} = require('../observables/geostore');
+} = require('../api/persistence');
 const {
     wrapStartStop
 } = require('../observables/epics');
@@ -88,6 +88,8 @@ module.exports = {
         .switchMap((w) => Rx.Observable.of(editNewWidget({
             legend: false,
             mapSync: false,
+            cartesian: true,
+            yAxis: true,
             ...w,
             // override action's type
             type: undefined

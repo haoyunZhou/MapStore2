@@ -194,6 +194,23 @@ describe('Test the MapUtils', () => {
                 url: "",
                 visibility: true,
                 catalogURL: "url"
+            },
+            {
+                allowedSRS: {},
+                bbox: {},
+                dimensions: [],
+                id: "layer004",
+                loading: true,
+                name: "layer004",
+                params: {},
+                search: {},
+                singleTile: false,
+                title: "layer004",
+                type: "wms",
+                url: "",
+                visibility: true,
+                catalogURL: "url",
+                origin: [100000, 100000]
             }
         ];
 
@@ -264,7 +281,9 @@ describe('Test the MapUtils', () => {
                     visibility: true,
                     catalogURL: "url",
                     hidden: false,
-                    useForElevation: false
+                    useForElevation: false,
+                    origin: undefined,
+                    thematic: undefined
                 },
                 {
                     allowedSRS: {},
@@ -304,7 +323,9 @@ describe('Test the MapUtils', () => {
                     visibility: true,
                     catalogURL: "url",
                     hidden: false,
-                    useForElevation: false
+                    useForElevation: false,
+                    origin: undefined,
+                    thematic: undefined
                 },
                 {
                     allowedSRS: {},
@@ -344,7 +365,51 @@ describe('Test the MapUtils', () => {
                     visibility: true,
                     catalogURL: "url",
                     hidden: false,
-                    useForElevation: false
+                    useForElevation: false,
+                    origin: undefined,
+                    thematic: undefined
+                },
+                {
+                    allowedSRS: {},
+                    thumbURL: undefined,
+                    availableStyles: undefined,
+                    bbox: {},
+                    capabilitiesURL: undefined,
+                    description: undefined,
+                    dimensions: [],
+                    nativeCrs: undefined,
+                    features: undefined,
+                    featureInfo: undefined,
+                    format: undefined,
+                    group: undefined,
+                    hideLoading: false,
+                    handleClickOnLayer: false,
+                    id: "layer004",
+                    matrixIds: undefined,
+                    maxZoom: undefined,
+                    maxNativeZoom: undefined,
+                    name: "layer004",
+                    opacity: undefined,
+                    params: {},
+                    provider: undefined,
+                    search: {},
+                    singleTile: false,
+                    source: undefined,
+                    style: undefined,
+                    styleName: undefined,
+                    styles: undefined,
+                    tileMatrixSet: undefined,
+                    tiled: undefined,
+                    title: "layer004",
+                    transparent: undefined,
+                    type: "wms",
+                    url: "",
+                    visibility: true,
+                    catalogURL: "url",
+                    hidden: false,
+                    useForElevation: false,
+                    origin: [100000, 100000],
+                    thematic: undefined
                 }],
                 mapOptions: {},
                 maxExtent: [-20037508.34, -20037508.34, 20037508.34, 20037508.34],
@@ -506,7 +571,9 @@ describe('Test the MapUtils', () => {
                     visibility: true,
                     catalogURL: "url",
                     hidden: false,
-                    useForElevation: false
+                    useForElevation: false,
+                    origin: undefined,
+                    thematic: undefined
                 },
                 {
                     allowedSRS: {},
@@ -546,7 +613,9 @@ describe('Test the MapUtils', () => {
                     visibility: true,
                     catalogURL: "url",
                     hidden: false,
-                    useForElevation: false
+                    useForElevation: false,
+                    origin: undefined,
+                    thematic: undefined
                 },
                 {
                     allowedSRS: {},
@@ -586,7 +655,9 @@ describe('Test the MapUtils', () => {
                     visibility: true,
                     catalogURL: "url",
                     hidden: false,
-                    useForElevation: false
+                    useForElevation: false,
+                    origin: undefined,
+                    thematic: undefined
                 }],
                 mapOptions: {
                     view: {
@@ -766,7 +837,9 @@ describe('Test the MapUtils', () => {
                     visibility: true,
                     catalogURL: "url",
                     hidden: false,
-                    useForElevation: false
+                    useForElevation: false,
+                    origin: undefined,
+                    thematic: undefined
                 },
                 {
                     allowedSRS: {},
@@ -806,7 +879,9 @@ describe('Test the MapUtils', () => {
                     visibility: true,
                     catalogURL: "url",
                     hidden: false,
-                    useForElevation: false
+                    useForElevation: false,
+                    origin: undefined,
+                    thematic: undefined
                 },
                 {
                     allowedSRS: {},
@@ -846,7 +921,9 @@ describe('Test the MapUtils', () => {
                     visibility: true,
                     catalogURL: "url",
                     hidden: false,
-                    useForElevation: false
+                    useForElevation: false,
+                    origin: undefined,
+                    thematic: undefined
                 }],
                 mapOptions: {},
                 maxExtent: [-20037508.34, -20037508.34, 20037508.34, 20037508.34],

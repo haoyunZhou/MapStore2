@@ -5,6 +5,9 @@
     cursor: -ms-grab;
     cursor: grab;
 }
+.no-drag .draggableHandle {
+    cursor: inherit;
+}
 .widget-container {
     &.react-grid-layout.on-map {
         pointer-events: none;
@@ -27,7 +30,11 @@
             }
         }
     }
-
+    &.no-drag .mapstore-widget-card {
+         -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
     .mapstore-widget-card {
         background: @ms2-color-background;
         margin: 20px 0;
@@ -36,9 +43,7 @@
         height: 100%;
         width: 100%;
         margin: 0;
-        -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-        -moz-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+        .shadow-far;
         .mapstore-widget-layer {
             text-align: center;
             margin: 10px 5%;
@@ -78,7 +83,8 @@
             position: absolute;
             font-size: 18px;
             color: @ms2-color-primary;
-            right: 20px;
+            right: 7px;
+            top: 10px;
         }
         .widget-menu {
             border: none;
@@ -209,3 +215,43 @@
 .m-padding-md {
     padding-bottom: 15px;
 }
+
+/* chart advance options  */
+
+.shadow-soft-up {
+    -webkit-box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.06), 0 -4px 8px rgba(0, 0, 0, 0.12);
+	-moz-box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.06), 0 -4px 8px rgba(0, 0, 0, 0.12);
+	box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.06), 0 -4px 8px rgba(0, 0, 0, 0.12);
+}
+
+
+
+.mapstore-chart-advance-options {
+    z-index: 20;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: @ms2-color-background;
+    .shadow-soft;
+
+    .ms2-border-layout-body {
+        background-color: @ms2-color-background;
+    }
+    .ms2-border-layout-body {
+        padding: 0;
+
+        .mapstore-switch-panel {
+            margin-bottom: @square-btn-small-size;
+            padding: 0 @square-btn-small-size / 2;
+            border: none;
+            .shadow-soft;
+            .panel-title {
+                font-weight: bold;
+            }
+        }
+    }
+
+}
+

@@ -21,6 +21,8 @@ const {findIndex, isNil} = require('lodash');
 const MAPS_LIST_LOADED = 'MAPS_LIST_LOADED';
 const MAPS_LIST_LOADING = 'MAPS_LIST_LOADING';
 const MAPS_LIST_LOAD_ERROR = 'MAPS_LIST_LOAD_ERROR';
+const MAPS_GET_MAP_RESOURCES_BY_CATEGORY = 'MAPS_GET_MAP_RESOURCES_BY_CATEGORY';
+const MAPS_LOAD_MAP = 'MAPS_LOAD_MAP';
 const MAP_UPDATING = 'MAP_UPDATING';
 const MAP_METADATA_UPDATED = 'MAP_METADATA_UPDATED';
 const MAP_UPDATED = 'MAP_UPDATED';
@@ -48,6 +50,7 @@ const UPDATE_DETAILS = 'MAPS:UPDATE_DETAILS';
 const SAVE_DETAILS = 'MAPS:SAVE_DETAILS';
 const DELETE_DETAILS = 'MAPS:DELETE_DETAILS';
 const SET_DETAILS_CHANGED = 'MAPS:SET_DETAILS_CHANGED';
+const SHOW_DETAILS = 'MAPS:SHOW_DETAILS';
 const SAVE_RESOURCE_DETAILS = 'MAPS:SAVE_RESOURCE_DETAILS';
 const DO_NOTHING = 'MAPS:DO_NOTHING';
 const DELETE_MAP = 'MAPS:DELETE_MAP';
@@ -90,6 +93,42 @@ function mapsLoading(searchText, params) {
 }
 
 /**
+ * loadMaps action, type `MAPS_LOAD_MAP`
+ * @memberof actions.maps
+ * @param  {string} geoStoreUrl      the url of geostore
+ * @param  {String} [searchText="*"] text to search
+ * @param  {Object} [params={start:  0. limit: 12}] params for the request
+ * @return {action} type `MAPS_LOAD_MAP` with geoStoreUrl, searchText and params
+ */
+function loadMaps(geoStoreUrl, searchText = "*", params = {start: 0, limit: 12}) {
+
+    return {
+        type: MAPS_LOAD_MAP,
+        geoStoreUrl,
+        searchText,
+        params
+    };
+}
+
+
+/**
+ * getMapResourcesByCategory action, type `MAPS_GET_MAP_RESOURCES_BY_CATEGORY`
+ * @memberof actions.maps
+ * @param  {string} searchText text to search
+ * @param  {string} map     MAP
+ * @param {Object} opts options
+ * @return {action}    type `MAPS_GET_MAP_RESOURCES_BY_CATEGORY` with searchText, map and opts
+ */
+function getMapResourcesByCategory(map, searchText, opts) {
+    return {
+        type: MAPS_GET_MAP_RESOURCES_BY_CATEGORY,
+        map,
+        searchText,
+        opts
+    };
+}
+
+/**
  * action to run to change search text
  * @memberof actions.maps
  * @param  {string} text the search text
@@ -121,6 +160,19 @@ function mapsLoaded(maps, params, searchText) {
         params,
         maps,
         searchText
+    };
+}
+
+/**
+ * shows or hides map details, type `MAPS:SHOW_DETAILS`
+ * @memberof actions.maps
+ * @prop {boolean} showMapDetails flag used to trigger the showing/hiding of the map details
+ * @return {action}        type `MAPS:SHOW_DETAILS`
+*/
+function setShowMapDetails(showMapDetails) {
+    return {
+        type: SHOW_DETAILS,
+        showMapDetails
     };
 }
 
@@ -391,25 +443,6 @@ function permissionsLoaded(permissions, mapId) {
     };
 }
 
-/**
- * Perform the maps load
- * @memberof actions.maps
- * @param  {string} geoStoreUrl      the url of geostore
- * @param  {String} [searchText="*"] text to search
- * @param  {Object} [params={start:  0. limit: 12}] params for the request
- * @return {thunk}                  dispatches mapsLoading, mapsLoaded or loadError
- */
-function loadMaps(geoStoreUrl, searchText = "*", params = {start: 0, limit: 12}) {
-    return (dispatch) => {
-        let opts = assign({}, {params}, geoStoreUrl ? {baseURL: geoStoreUrl} : {});
-        dispatch(mapsLoading(searchText, params));
-        GeoStoreApi.getResourcesByCategory("MAP", searchText, opts).then((response) => {
-            dispatch(mapsLoaded(response, params, searchText));
-        }).catch((e) => {
-            dispatch(loadError(e));
-        });
-    };
-}
 
 /**
  * perform permission load for a mapId
@@ -952,8 +985,10 @@ module.exports = {
     detailsSaving, DETAILS_SAVING,
     toggleDetailsEditability, TOGGLE_DETAILS_EDITABILITY,
     setFeaturedMapsEnabled, FEATURED_MAPS_SET_ENABLED,
+    setShowMapDetails, SHOW_DETAILS,
     metadataChanged,
-    loadMaps,
+    loadMaps, MAPS_LOAD_MAP,
+    getMapResourcesByCategory, MAPS_GET_MAP_RESOURCES_BY_CATEGORY,
     mapsLoading,
     mapsLoaded,
     mapCreated,
